@@ -1,3 +1,5 @@
+import { ReturnBook } from "./ReturnBook";
+
 export const Carousel = () => {
     return (
         <div className="container mt-5" style={{ height: 550 }}>
@@ -10,16 +12,7 @@ export const Carousel = () => {
                 <div className="carousel-inner">
                     <div className="carousel-item active">
                         <div className="row d-flex justify-content-center align-items-center">
-                            <div className="col-xs-6 col-sm-6 col-md-4 col-lg-3 mb-3">
-                                <div className="text-center">
-                                    <img src={require('./../../Images/BooksImages/book-1000.png')}
-                                        alt="book" width='151' height='233'
-                                    />
-                                    <h6 className="mt-2">Book</h6>
-                                    <p>Library</p>
-                                    <a className="btn main-color text-white" href='#'>Reserve</a>
-                                </div>
-                            </div>
+                            <ReturnBook/>
                         </div>
                     </div>
                     <div className="carousel-item">
