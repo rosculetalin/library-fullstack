@@ -14,9 +14,7 @@ export const QAServices = () => {
                         <a className="btn main-color btn-lg text-white" href="#">Sign up</a>
                     </div>
                 </div>
-                <div className="col-lg-4 offset-lg-1 shadow-lg lost-image">
-                    
-                </div>
+                <div className="col-lg-4 offset-lg-1 shadow-lg lost-image"></div>
             </div>
         </div>
     );
