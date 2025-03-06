@@ -1,0 +1,16 @@
+FROM mysql:8.0
+
+# docker build -f Dockerfile-db -t mysql:8 .
+# docker run --name mysql-container -d mysql:8
+# docker run --name mysql-container -d -p 3306:3306 mysql:8
+# change mysql driver property allowPublicKeyRetrieval to true
+
+# todo: mask them
+ENV MYSQL_ROOT_PASSWORD=password
+ENV MYSQL_DATABASE=library
+ENV MYSQL_USER=user
+ENV MYSQL_PASSWORD=pass
+
+EXPOSE 3306
+
+CMD ["mysqld"]

@@ -1,1 +1,7 @@
 /library-frontend/node_modules/*
+/library-backend/target/*
+/.DS_Store
+/library-frontend/.DS_Store
+/library-backend/.DS_Store
+/library-backend/.idea/*
+/library-backend/.mvn/*
