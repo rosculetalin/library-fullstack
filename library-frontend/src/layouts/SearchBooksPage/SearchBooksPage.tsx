@@ -21,7 +21,7 @@ export const SearchBooksPage = () => {
             const url: string = `${baseUrl}?page=${currentPage - 1}&size=${booksPerPage}`;
             
             // Add artificial delay before making the request
-            await new Promise(resolve => setTimeout(resolve, 1500));
+            // await new Promise(resolve => setTimeout(resolve, 1500));
             
             const response = await fetch(url);
 
@@ -55,7 +55,8 @@ export const SearchBooksPage = () => {
             setIsLoading(false);
             setHttpError(err.message);
         });
-    }, []);
+        window.scrollTo(0, 0);
+    }, [currentPage]);
 
     if (isLoading) {
         return (
@@ -116,10 +117,10 @@ export const SearchBooksPage = () => {
                         </div>
                     </div>
                     <div className="mt-3">
-                        <h5>Number of results: (22)</h5>
+                        <h5>Number of results: {totalAmountOfBooks}</h5>
                     </div>
                     <p>
-                        1 to 5 of 22 items:
+                        {indexOfFirstBook + 1} to {lastItem} of {totalAmountOfBooks} items:
                     </p>
                     {books.map(book => (
                         <SearchBook book={book} key={book.id}/>

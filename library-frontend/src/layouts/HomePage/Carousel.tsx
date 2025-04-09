@@ -15,7 +15,7 @@ export const Carousel = () => {
             const url: string = `${baseUrl}?page=0&size=9`;
             
             // Add artificial delay before making the request
-            await new Promise(resolve => setTimeout(resolve, 1500));
+            // await new Promise(resolve => setTimeout(resolve, 1500));
             
             const response = await fetch(url);
 
