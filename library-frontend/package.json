@@ -23,7 +23,7 @@
     "test": "react-scripts test",
     "eject": "react-scripts eject"
   },
-  "eslintConfig": {
+  "_eslintConfig": {
     "extends": [
       "react-app",
       "react-app/jest"
