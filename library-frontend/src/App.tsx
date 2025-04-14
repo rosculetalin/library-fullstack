@@ -2,8 +2,8 @@ import './App.css';
 import React from 'react';
 import { Navbar } from './layouts/NavbarAndFooter/Navbar';
 import { Footer } from './layouts/NavbarAndFooter/Footer';
-import { HomePage } from './layouts/HomePage/HomePage';
-import { SearchBooksPage } from './layouts/SearchBooksPage/SearchBooksPage';
+import { HomePage } from './layouts/Home/HomePage';
+import { SearchBooksPage } from './layouts/SearchBooks/SearchBooksPage';
 import { Redirect, Route, Switch } from 'react-router-dom';
 
 export const App = () => {
