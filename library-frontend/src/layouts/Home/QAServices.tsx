@@ -1,4 +1,10 @@
+import { useOktaAuth } from "@okta/okta-react";
+import { Link } from "react-router-dom";
+
 export const QAServices = () => {
+
+    const {authState} = useOktaAuth();
+
     return (
         <div className="container my-5">
             <div className="row p-4 align-items-center border shadow-lg">
@@ -11,7 +17,15 @@ export const QAServices = () => {
                         send our library admin's a personal message.
                     </p>
                     <div className="d-grid gap-2 justify-content-md-start mb-4 mb-lg-3">
-                        <a className="btn main-color btn-lg text-white" href="#">Sign up</a>
+                        {authState?.isAuthenticated ?
+                            <Link to="#" type="button" className="btn main-color btn-lg px-4 me-md-2 fw-bold text-white">
+                                Library Services
+                            </Link>
+                            :
+                            <Link to="/login" type="button" className="btn main-color btn-lg text-white">
+                                Sign up
+                            </Link>
+                        }
                     </div>
                 </div>
                 <div className="col-lg-4 offset-lg-1 shadow-lg lost-image"></div>
