@@ -11,7 +11,6 @@ export const StarsReview: React.FC<{ rating: number; size: number }> = (props) =
 
     if (rating !== undefined && rating > 0 && rating <= 5) {
         for (let i = 0; i < 5; i++) {
-            console.log(rating)
             if (rating - 1 >= 0) {
                 fullStars++;
                 rating = roundToOneDecimal(rating - 1);
