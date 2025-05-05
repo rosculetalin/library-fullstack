@@ -4,7 +4,7 @@ import jakarta.persistence.*;
 import lombok.Data;
 import org.hibernate.annotations.CreationTimestamp;
 
-import java.util.Date;
+import java.sql.Date;
 
 @Data
 @Entity
