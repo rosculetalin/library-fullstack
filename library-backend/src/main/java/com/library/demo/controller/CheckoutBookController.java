@@ -1,10 +1,13 @@
 package com.library.demo.controller;
 
 import com.library.demo.entity.Book;
+import com.library.demo.response_models.ShelfCurrentLoansResponse;
 import com.library.demo.service.CheckoutBookService;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.oauth2.jwt.Jwt;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @CrossOrigin("http//localhost:3000")
 @RestController
@@ -35,5 +38,23 @@ public class CheckoutBookController {
     public int currentLoansCount(@AuthenticationPrincipal Jwt jwt) {
         String userEmail = jwt.getClaimAsString("sub");
         return checkoutBookService.currentLoansCount(userEmail);
+    }
+
+    @GetMapping("/secure/currentLoans")
+    public List<ShelfCurrentLoansResponse> currentLoans(@AuthenticationPrincipal Jwt jwt) throws Exception {
+        String userEmail = jwt.getClaimAsString("sub");
+        return checkoutBookService.currentLoans(userEmail);
+    }
+
+    @PutMapping("/secure/return")
+    public void returnBook(@AuthenticationPrincipal Jwt jwt, @RequestParam Long bookId) throws Exception {
+        String userEmail = jwt.getClaimAsString("sub");
+        checkoutBookService.returnBook(userEmail, bookId);
+    }
+
+    @PutMapping("/secure/renew/loan")
+    public void renewLoan(@AuthenticationPrincipal Jwt jwt, @RequestParam Long bookId) throws Exception {
+        String userEmail = jwt.getClaimAsString("sub");
+        checkoutBookService.renewLoan(userEmail, bookId);
     }
 }
