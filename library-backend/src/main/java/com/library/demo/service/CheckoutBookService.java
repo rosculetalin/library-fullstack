@@ -4,7 +4,9 @@ import com.library.demo.dao.BookRepository;
 import com.library.demo.dao.CheckoutRepository;
 import com.library.demo.entity.Book;
 import com.library.demo.entity.Checkout;
+import com.library.demo.exception.BookAlreadyCheckoutException;
 import com.library.demo.response_models.ShelfCurrentLoansResponse;
+import com.library.demo.exception.BookNotFoundException;
 import jakarta.transaction.Transactional;
 import org.springframework.stereotype.Service;
 
@@ -15,7 +17,6 @@ import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 import java.util.concurrent.TimeUnit;
-import java.util.stream.Collectors;
 
 @Service
 @Transactional
@@ -34,9 +35,14 @@ public class CheckoutBookService {
         Optional<Book> book = bookRepository.findById(bookId);
         Checkout validateCheckout = checkoutRepository.findByUserEmailAndBookId(userEmail, bookId);
 
-        if (book.isEmpty() || validateCheckout != null || book.get().getCopiesAvailable() <= 0) {
-            throw new Exception("Book doesn't exist or already checkout by the user.");
+        if (book.isEmpty() || book.get().getCopiesAvailable() <= 0) {
+            throw new BookNotFoundException("Book does not exist or it is not available when checkout the book");
         }
+
+        if (validateCheckout != null) {
+            throw new BookAlreadyCheckoutException("Book is already checkout by the user when trying to checkout same book");
+        }
+
         book.get().setCopiesAvailable(book.get().getCopiesAvailable() - 1);
         bookRepository.save(book.get());
 
@@ -89,12 +95,17 @@ public class CheckoutBookService {
         return shelfCurrentLoansResponses;
     }
 
-    public void returnBook(String userEmail, Long bookId) throws Exception {
+    public void returnBook(String userEmail, Long bookId) throws BookNotFoundException {
         Optional<Book> book = bookRepository.findById(bookId);
         Checkout validateCheckout = checkoutRepository.findByUserEmailAndBookId(userEmail, bookId);
-        if (!book.isPresent() || validateCheckout == null) {
-            throw new Exception("Book doesn't exist or not checked out by user");
+
+        if (book.isEmpty()) {
+            throw new BookNotFoundException("Book does not exist when return the checkout book");
         }
+        if (validateCheckout == null) {
+            throw new BookAlreadyCheckoutException("The checkout of the book does not exist when return the checkout book");
+        }
+
         book.get().setCopiesAvailable(book.get().getCopiesAvailable() + 1);
         bookRepository.save(book.get());
         checkoutRepository.deleteById(validateCheckout.getId());
@@ -104,7 +115,7 @@ public class CheckoutBookService {
         Checkout validateCheckout = checkoutRepository.findByUserEmailAndBookId(userEmail, bookId);
 
         if (validateCheckout == null) {
-            throw new Exception("Book doesn't exist or not checked out by user");
+            throw new BookAlreadyCheckoutException("The checkout of the book does not exist when renew");
         }
 
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");

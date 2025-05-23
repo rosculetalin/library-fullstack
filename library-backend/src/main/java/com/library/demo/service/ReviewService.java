@@ -1,8 +1,8 @@
 package com.library.demo.service;
 
-import com.library.demo.dao.BookRepository;
 import com.library.demo.dao.ReviewRepository;
 import com.library.demo.entity.Review;
+import com.library.demo.exception.ReviewConflictException;
 import com.library.demo.request_models.ReviewRequest;
 import jakarta.transaction.Transactional;
 import org.springframework.stereotype.Service;
@@ -23,7 +23,7 @@ public class ReviewService {
     public void postReview(String userEmail, ReviewRequest reviewRequest) throws Exception {
         Review validateReview = reviewRepository.findByUserEmailAndBookId(userEmail, reviewRequest.getBookId());
         if (validateReview != null) {
-            throw new Exception("Review already created!");
+            throw new ReviewConflictException("Review already created!");
         }
 
         Review review = new Review();

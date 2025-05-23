@@ -3,6 +3,9 @@ package com.library.demo.controller;
 import com.library.demo.entity.Book;
 import com.library.demo.response_models.ShelfCurrentLoansResponse;
 import com.library.demo.service.CheckoutBookService;
+import com.library.demo.exception.BookNotFoundException;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.oauth2.jwt.Jwt;
 import org.springframework.web.bind.annotation.*;
@@ -47,7 +50,7 @@ public class CheckoutBookController {
     }
 
     @PutMapping("/secure/return")
-    public void returnBook(@AuthenticationPrincipal Jwt jwt, @RequestParam Long bookId) throws Exception {
+    public void returnBook(@AuthenticationPrincipal Jwt jwt, @RequestParam Long bookId) throws BookNotFoundException {
         String userEmail = jwt.getClaimAsString("sub");
         checkoutBookService.returnBook(userEmail, bookId);
     }
