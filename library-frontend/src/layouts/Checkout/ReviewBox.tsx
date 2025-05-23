@@ -35,7 +35,7 @@ export const ReviewBox: React.FC<{ book: BookModel | undefined, mobile: boolean,
     function reviewRender() {
         if (props.isAuthenticated && !props.isReviewLeft) {
             return (
-                <p><LeaveReview submitReview={props.submitReview}/></p>
+                <div><LeaveReview submitReview={props.submitReview}/></div>
             )
         } else if (props.isAuthenticated && props.isReviewLeft) {
             return (

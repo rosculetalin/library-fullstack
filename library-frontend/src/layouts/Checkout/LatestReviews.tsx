@@ -18,7 +18,7 @@ bookId: number | undefined, mobile: boolean}> = (props) => {
                         )}
                         <div className="m-3">
                             <Link type="button" className="btn main-color btn-md px-4" 
-                                to='#'>Reach all reviews.
+                                to={`/reviewlist/${props.bookId}`}>Reach all reviews.
                             </Link>
                         </div>
                     </>
