@@ -2,8 +2,10 @@ package com.library.demo.service;
 
 import com.library.demo.dao.BookRepository;
 import com.library.demo.dao.CheckoutRepository;
+import com.library.demo.dao.HistoryRepository;
 import com.library.demo.entity.Book;
 import com.library.demo.entity.Checkout;
+import com.library.demo.entity.History;
 import com.library.demo.exception.BookAlreadyCheckoutException;
 import com.library.demo.response_models.ShelfCurrentLoansResponse;
 import com.library.demo.exception.BookNotFoundException;
@@ -26,9 +28,13 @@ public class CheckoutBookService {
 
     private CheckoutRepository checkoutRepository;
 
-    public CheckoutBookService(BookRepository bookRepository, CheckoutRepository checkoutRepository) {
+    private HistoryRepository historyRepository;
+
+    public CheckoutBookService(BookRepository bookRepository, CheckoutRepository checkoutRepository,
+                               HistoryRepository historyRepository) {
         this.bookRepository = bookRepository;
         this.checkoutRepository = checkoutRepository;
+        this.historyRepository = historyRepository;
     }
 
     public Book computeCheckoutBook(String userEmail, Long bookId) throws Exception {
@@ -109,6 +115,10 @@ public class CheckoutBookService {
         book.get().setCopiesAvailable(book.get().getCopiesAvailable() + 1);
         bookRepository.save(book.get());
         checkoutRepository.deleteById(validateCheckout.getId());
+
+        History history = new History(userEmail, validateCheckout.getCheckoutDate(), LocalDate.now().toString(),
+                book.get().getTitle(), book.get().getAuthor(), book.get().getDescription(), book.get().getImg());
+        historyRepository.save(history);
     }
 
     public void renewLoan(String userEmail, Long bookId) throws Exception {
