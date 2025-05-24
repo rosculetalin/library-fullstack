@@ -19,7 +19,7 @@ export const QAServices = () => {
                     <div className="d-grid gap-2 justify-content-md-start mb-4 mb-lg-3">
                         {authState?.isAuthenticated ?
                             <Link to="/messages" type="button" className="btn main-color btn-lg px-4 me-md-2 fw-bold text-white">
-                                Library Services
+                                Q&A Services
                             </Link>
                             :
                             <Link to="/login" type="button" className="btn main-color btn-lg text-white">
