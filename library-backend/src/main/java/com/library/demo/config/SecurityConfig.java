@@ -24,7 +24,7 @@ public class SecurityConfig {
         // protect endpoints at /api/books/secure
         http.authorizeHttpRequests(configurer -> configurer
                 .requestMatchers("/api/books/secure/**", "/api/reviews/secure/**").authenticated()
-                .requestMatchers("/api/books/**", "/api/reviews/**").permitAll()
+                .requestMatchers("/api/books/**", "/api/reviews/**", "/api/histories/**").permitAll()
         );
 
         // cors filters
