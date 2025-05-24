@@ -23,8 +23,18 @@ public class GlobalExceptionHandler {
         return new ResponseEntity(e.getMessage(), HttpStatus.NOT_FOUND);
     }
 
+    @ExceptionHandler(MessageNotFoundException.class)
+    public ResponseEntity handleMessageNotFoundException(MessageNotFoundException e) {
+        return new ResponseEntity(e.getMessage(), HttpStatus.NOT_FOUND);
+    }
+
     @ExceptionHandler(ReviewConflictException.class)
     public ResponseEntity handleReviewConflictException(ReviewConflictException e) {
         return new ResponseEntity(e.getMessage(), HttpStatus.CONFLICT);
+    }
+
+    @ExceptionHandler(UserNotAdminException.class)
+    public ResponseEntity handleUserNotAdminException(UserNotAdminException e) {
+        return new ResponseEntity(e.getMessage(), HttpStatus.FORBIDDEN);
     }
 }
