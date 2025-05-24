@@ -23,8 +23,11 @@ public class SecurityConfig {
 
         // protect endpoints at /api/books/secure
         http.authorizeHttpRequests(configurer -> configurer
-                .requestMatchers("/api/books/secure/**", "/api/reviews/secure/**").authenticated()
-                .requestMatchers("/api/books/**", "/api/reviews/**", "/api/histories/**").permitAll()
+                .requestMatchers(
+                        "/api/books/secure/**",
+                        "/api/reviews/secure/**",
+                        "/api/messages/secure/**").authenticated()
+                .requestMatchers("/api/books/**", "/api/reviews/**", "/api/histories/**", "/api/messages/**").permitAll()
         );
 
         // cors filters
@@ -40,7 +43,7 @@ public class SecurityConfig {
         config.addAllowedMethod("*");
         config.addAllowedHeader("*");
         config.setAllowCredentials(true);
-        
+
         UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
         source.registerCorsConfiguration("/**", config);
         return source;
