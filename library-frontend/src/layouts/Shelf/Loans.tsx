@@ -11,7 +11,7 @@ export const Loans = () => {
     const [httpError, setHttpError] = useState(null);
 
     const [shelfCurrentLoans, setShelfCurrentLoans] = useState<ShelfCurrentLoans[]>([]);
-    const [isLoadingUserLoans, setIsLoadingUserLoans] = useState(false);
+    const [isLoadingUserLoans, setIsLoadingUserLoans] = useState(true);
     const [checkout, setCheckout] = useState(false);
 
     useEffect(() => {
@@ -40,20 +40,6 @@ export const Loans = () => {
         })
         window.scrollTo(0, 0);
     }, [authState, checkout]);
-
-    if (isLoadingUserLoans) {
-        return (
-            <SpinnerLoading />
-        )
-    }
-
-    if (httpError) {
-        return (
-            <div className="container m-5">
-                <p>{httpError}</p>
-            </div>
-        )
-    }
 
     async function doReturnCheckoutBook(bookId: number) {
         const url = `http://localhost:8080/api/books/secure/return?bookId=${bookId}`;
@@ -85,6 +71,20 @@ export const Loans = () => {
             throw new Error("Something went wrong!");
         }
         setCheckout(!checkout);
+    }
+
+    if (isLoadingUserLoans) {
+        return (
+            <SpinnerLoading />
+        )
+    }
+
+    if (httpError) {
+        return (
+            <div className="container m-5">
+                <p>{httpError}</p>
+            </div>
+        )
     }
 
     return (
