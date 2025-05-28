@@ -37,4 +37,9 @@ public class GlobalExceptionHandler {
     public ResponseEntity handleUserNotAdminException(UserNotAdminException e) {
         return new ResponseEntity(e.getMessage(), HttpStatus.FORBIDDEN);
     }
+
+    @ExceptionHandler(BookQuantityLockedException.class)
+    public ResponseEntity handleBookQuantityLockedException(BookQuantityLockedException e) {
+        return new ResponseEntity(e.getMessage(), HttpStatus.BAD_REQUEST);
+    }
 }

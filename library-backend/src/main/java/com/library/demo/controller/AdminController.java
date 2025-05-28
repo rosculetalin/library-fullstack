@@ -26,4 +26,31 @@ public class AdminController {
         }
         adminService.postBook(addBookRequest);
     }
+
+    @PutMapping("/secure/increase/book/quantity")
+    public void increaseBookQuantity(@AuthenticationPrincipal Jwt jwt, @RequestParam Long bookId) throws Exception {
+        String admin = jwt.getClaimAsString("userType");
+        if (!"admin".equals(admin)) {
+            throw new UserNotAdminException("Administration page only");
+        }
+        adminService.increaseBookQuantity(bookId);
+    }
+
+    @PutMapping("/secure/decrease/book/quantity")
+    public void decreaseBookQuantity(@AuthenticationPrincipal Jwt jwt, @RequestParam Long bookId) throws Exception {
+        String admin = jwt.getClaimAsString("userType");
+        if (!"admin".equals(admin)) {
+            throw new UserNotAdminException("Administration page only");
+        }
+        adminService.decreaseBookQuantity(bookId);
+    }
+
+    @DeleteMapping("/secure/delete/book")
+    public void deleteBook(@AuthenticationPrincipal Jwt jwt, @RequestParam Long bookId) throws Exception {
+        String admin = jwt.getClaimAsString("userType");
+        if (!"admin".equals(admin)) {
+            throw new UserNotAdminException("Administration page only");
+        }
+        adminService.deleteBook(bookId);
+    }
 }
