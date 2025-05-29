@@ -12,8 +12,7 @@ export const Carousel = () => {
 
     useEffect(() => {
         const fetchBooks = async () => {
-            const baseUrl: string = "http://localhost:8080/api/books";
-            const url: string = `${baseUrl}?page=0&size=9`;
+            const url: string = `${process.env.REACT_APP_API}/books?page=0&size=9`;
             
             // Add artificial delay before making the request
             // await new Promise(resolve => setTimeout(resolve, 1500));
