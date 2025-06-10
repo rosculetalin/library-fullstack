@@ -5,6 +5,9 @@ FROM mysql:8.0
 # change mysql driver property allowPublicKeyRetrieval to true
 # change mysql driver property allowMultiQueries to true
 
+# keytool -exportcert -alias digitalhive -keystore library-backend/src/main/resources/digitalHive-keystore.p12 -storepass secret -file backend-cert.crt
+# add again the certificate to trusted windows + R = certmgr.msc
+
 # todo: mask them
 ENV MYSQL_ROOT_PASSWORD=password
 ENV MYSQL_DATABASE=library
