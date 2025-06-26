@@ -14,6 +14,7 @@ import { ReviewListPage } from './layouts/Checkout/ReviewList';
 import { ShelfPage } from './layouts/Shelf/ShelfPage';
 import { MessagesPage } from './layouts/Messages/MessagesPage';
 import { ManageLibraryPage } from './layouts/Admin/ManageLibraryPage';
+import { PaymentPage } from './layouts/Payment/PaymentPage';
 
 const oktaAuth = new OktaAuth(oktaConfig);
 
@@ -37,24 +38,9 @@ export const App = () => {
         <div className="flex-grow-1">
 
           <Switch>
+
             <Route exact path="/">
               <Redirect to="/home" />
-            </Route>
-
-            <Route path="/home">
-              <HomePage />
-            </Route>
-
-            <Route path="/search">
-              <SearchBooksPage />
-            </Route>
-
-            <Route path="/reviewlist/:bookId">
-              <ReviewListPage />
-            </Route>
-
-            <Route path="/checkout/:bookId">
-              <BookCheckoutPage />
             </Route>
 
             <Route path="/login" render={
@@ -63,17 +49,16 @@ export const App = () => {
 
             <Route path="/login/callback" component={LoginCallback} />
 
-            <SecureRoute path="/shelf">
-              <ShelfPage />
-            </SecureRoute>
+            <Route path="/home">               <HomePage /></Route>
+            <Route path="/search">             <SearchBooksPage /></Route>
+            <Route path="/reviewlist/:bookId"> <ReviewListPage /></Route>
+            <Route path="/checkout/:bookId">   <BookCheckoutPage /></Route>
+            
+            <SecureRoute path="/shelf">        <ShelfPage /></SecureRoute>
+            <SecureRoute path="/messages">     <MessagesPage /></SecureRoute>
+            <SecureRoute path="/admin">        <ManageLibraryPage /></SecureRoute>
+            <SecureRoute path="/fees">        <PaymentPage /></SecureRoute>
 
-            <SecureRoute path="/messages">
-              <MessagesPage />
-            </SecureRoute>
-
-            <SecureRoute path="/admin">
-              <ManageLibraryPage />
-            </SecureRoute>
           </Switch>
 
         </div>
