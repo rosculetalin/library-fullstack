@@ -31,7 +31,7 @@ public class SecurityConfig {
                         "/api/reviews/secure/**",
                         "/api/messages/secure/**",
                         "/api/admin/secure/**").authenticated()
-                .requestMatchers("/api/books/**", "/api/reviews/**", "/api/histories/**", "/api/messages/**").permitAll()
+                .requestMatchers("/api/books/**", "/api/reviews/**", "/api/histories/**", "/api/messages/**", "/api/payments/**").permitAll()
         );
 
         // cors filters
