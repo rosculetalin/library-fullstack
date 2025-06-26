@@ -19,13 +19,13 @@ public class ReviewController {
     }
 
     @GetMapping("/secure/user/book")
-    public Boolean reviewBookByUser(@AuthenticationPrincipal Jwt jwt, @RequestParam Long bookId) throws Exception {
+    public Boolean reviewBookByUser(@AuthenticationPrincipal Jwt jwt, @RequestParam Long bookId) {
         String userEmail = jwt.getClaimAsString("sub");
         return reviewService.userReviewListed(userEmail, bookId);
     }
 
     @PostMapping("/secure")
-    public void postReview(@AuthenticationPrincipal Jwt jwt, @RequestBody ReviewRequest reviewRequest) throws Exception {
+    public void postReview(@AuthenticationPrincipal Jwt jwt, @RequestBody ReviewRequest reviewRequest) {
         String userEmail = jwt.getClaimAsString("sub");
         reviewService.postReview(userEmail, reviewRequest);
     }

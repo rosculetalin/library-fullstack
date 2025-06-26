@@ -40,7 +40,7 @@ public class AdminService {
         bookRepository.save(book);
     }
     
-    public void increaseBookQuantity(Long bookId) throws Exception {
+    public void increaseBookQuantity(Long bookId) {
         Optional<Book> book = bookRepository.findById(bookId);
 
         if (!book.isPresent()) {
@@ -53,7 +53,7 @@ public class AdminService {
         bookRepository.save(book.get());
     }
 
-    public void decreaseBookQuantity(Long bookId) throws Exception {
+    public void decreaseBookQuantity(Long bookId) {
         Optional<Book> book = bookRepository.findById(bookId);
 
         if (!book.isPresent()) {
@@ -70,7 +70,7 @@ public class AdminService {
         bookRepository.save(book.get());
     }
 
-    public void deleteBook(Long bookId) throws Exception {
+    public void deleteBook(Long bookId) {
         Optional<Book> book = bookRepository.findById(bookId);
 
         if (!book.isPresent()) {

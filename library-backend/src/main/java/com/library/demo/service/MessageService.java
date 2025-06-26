@@ -25,7 +25,7 @@ public class MessageService {
         messageRepository.save(message);
     }
 
-    public void putMessage(AdminQuestionRequest adminQuestionRequest, String userEmail) throws Exception {
+    public void putMessage(AdminQuestionRequest adminQuestionRequest, String userEmail) {
         Optional<Message> message = messageRepository.findById(adminQuestionRequest.getId());
         if (!message.isPresent()) {
             throw new MessageNotFoundException("Message not found when trying to answer a question as admin");

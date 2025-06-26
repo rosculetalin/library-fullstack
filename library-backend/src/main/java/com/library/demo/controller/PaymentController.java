@@ -29,7 +29,7 @@ public class PaymentController {
     }
 
     @PutMapping("/payment-complete")
-    public ResponseEntity<String> stripePaymentComplete(@AuthenticationPrincipal Jwt jwt) throws Exception {
+    public ResponseEntity<String> stripePaymentComplete(@AuthenticationPrincipal Jwt jwt) {
         String userEmail = jwt.getClaimAsString("sub");
         paymentService.completeStripePayment(userEmail);
         return new ResponseEntity<>(HttpStatus.OK);

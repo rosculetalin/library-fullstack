@@ -9,11 +9,13 @@ import com.library.demo.entity.Checkout;
 import com.library.demo.entity.History;
 import com.library.demo.entity.Payment;
 import com.library.demo.exception.BookAlreadyCheckoutException;
+import com.library.demo.exception.FeeException;
 import com.library.demo.response_models.ShelfCurrentLoansResponse;
 import com.library.demo.exception.BookNotFoundException;
 import jakarta.transaction.Transactional;
 import org.springframework.stereotype.Service;
 
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.util.ArrayList;
@@ -42,7 +44,7 @@ public class CheckoutBookService {
         this.paymentRepository = paymentRepository;
     }
 
-    public Book computeCheckoutBook(String userEmail, Long bookId) throws Exception {
+    public Book computeCheckoutBook(String userEmail, Long bookId) throws ParseException {
         Optional<Book> book = bookRepository.findById(bookId);
         Checkout validateCheckout = checkoutRepository.findByUserEmailAndBookId(userEmail, bookId);
 
@@ -71,7 +73,7 @@ public class CheckoutBookService {
         }
         Payment userPayment = paymentRepository.findByUserEmail(userEmail);
         if ((userPayment != null && userPayment.getAmount() > 0) || (userPayment != null && bookNeedsReturned)) {
-            throw new Exception("Outstandings fees");
+            throw new FeeException("Outstandings fees");
         }
         if (userPayment == null) {
             Payment payment = new Payment();
@@ -104,7 +106,7 @@ public class CheckoutBookService {
         return checkoutRepository.findBooksByUserEmail(userEmail).size();
     }
 
-    public List<ShelfCurrentLoansResponse> currentLoans(String userEmail) throws Exception {
+    public List<ShelfCurrentLoansResponse> currentLoans(String userEmail) throws ParseException {
         List<ShelfCurrentLoansResponse> shelfCurrentLoansResponses = new ArrayList<>();
         List<Checkout> checkouts = checkoutRepository.findBooksByUserEmail(userEmail);
         List<Long> bookIds = checkouts.stream().map(Checkout::getBookId).toList();
@@ -132,7 +134,7 @@ public class CheckoutBookService {
         return shelfCurrentLoansResponses;
     }
 
-    public void returnBook(String userEmail, Long bookId) throws BookNotFoundException, Exception {
+    public void returnBook(String userEmail, Long bookId) throws ParseException {
         Optional<Book> book = bookRepository.findById(bookId);
         Checkout validateCheckout = checkoutRepository.findByUserEmailAndBookId(userEmail, bookId);
 
@@ -164,7 +166,7 @@ public class CheckoutBookService {
         historyRepository.save(history);
     }
 
-    public void renewLoan(String userEmail, Long bookId) throws Exception {
+    public void renewLoan(String userEmail, Long bookId) throws ParseException {
         Checkout validateCheckout = checkoutRepository.findByUserEmailAndBookId(userEmail, bookId);
 
         if (validateCheckout == null) {

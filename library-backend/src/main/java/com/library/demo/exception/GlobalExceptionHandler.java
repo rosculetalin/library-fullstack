@@ -42,4 +42,14 @@ public class GlobalExceptionHandler {
     public ResponseEntity handleBookQuantityLockedException(BookQuantityLockedException e) {
         return new ResponseEntity(e.getMessage(), HttpStatus.BAD_REQUEST);
     }
+
+    @ExceptionHandler(FeeException.class)
+    public ResponseEntity handleFeeException(FeeException e) {
+        return new ResponseEntity(e.getMessage(), HttpStatus.BAD_REQUEST);
+    }
+
+    @ExceptionHandler(PaymentInformationException.class)
+    public ResponseEntity handlePaymentInformationException(PaymentInformationException e) {
+        return new ResponseEntity(e.getMessage(), HttpStatus.BAD_REQUEST);
+    }
 }

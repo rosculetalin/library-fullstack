@@ -1,5 +1,7 @@
 package com.library.demo.controller;
 
+import com.library.demo.exception.BookNotFoundException;
+import com.library.demo.exception.BookQuantityLockedException;
 import com.library.demo.exception.UserNotAdminException;
 import com.library.demo.request_models.AddBookRequest;
 import com.library.demo.service.AdminService;
@@ -19,7 +21,7 @@ public class AdminController {
     }
 
     @PostMapping("/secure/add/book")
-    public void postBook(@AuthenticationPrincipal Jwt jwt, @RequestBody AddBookRequest addBookRequest) throws Exception {
+    public void postBook(@AuthenticationPrincipal Jwt jwt, @RequestBody AddBookRequest addBookRequest) {
         String admin = jwt.getClaimAsString("userType");
         if (!"admin".equals(admin)) {
             throw new UserNotAdminException("Administration page only");
@@ -28,7 +30,7 @@ public class AdminController {
     }
 
     @PutMapping("/secure/increase/book/quantity")
-    public void increaseBookQuantity(@AuthenticationPrincipal Jwt jwt, @RequestParam Long bookId) throws Exception {
+    public void increaseBookQuantity(@AuthenticationPrincipal Jwt jwt, @RequestParam Long bookId) {
         String admin = jwt.getClaimAsString("userType");
         if (!"admin".equals(admin)) {
             throw new UserNotAdminException("Administration page only");
@@ -37,7 +39,7 @@ public class AdminController {
     }
 
     @PutMapping("/secure/decrease/book/quantity")
-    public void decreaseBookQuantity(@AuthenticationPrincipal Jwt jwt, @RequestParam Long bookId) throws Exception {
+    public void decreaseBookQuantity(@AuthenticationPrincipal Jwt jwt, @RequestParam Long bookId) {
         String admin = jwt.getClaimAsString("userType");
         if (!"admin".equals(admin)) {
             throw new UserNotAdminException("Administration page only");
@@ -46,7 +48,7 @@ public class AdminController {
     }
 
     @DeleteMapping("/secure/delete/book")
-    public void deleteBook(@AuthenticationPrincipal Jwt jwt, @RequestParam Long bookId) throws Exception {
+    public void deleteBook(@AuthenticationPrincipal Jwt jwt, @RequestParam Long bookId) {
         String admin = jwt.getClaimAsString("userType");
         if (!"admin".equals(admin)) {
             throw new UserNotAdminException("Administration page only");

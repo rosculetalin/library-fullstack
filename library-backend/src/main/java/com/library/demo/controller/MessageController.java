@@ -28,7 +28,7 @@ public class MessageController {
 
     @PutMapping("/secure/admin/message")
 //    @PreAuthorize("authentication.principal.claims['userType'] == 'admin'")
-    public void putMessage(@AuthenticationPrincipal Jwt jwt, @RequestBody AdminQuestionRequest adminQuestionRequest) throws Exception {
+    public void putMessage(@AuthenticationPrincipal Jwt jwt, @RequestBody AdminQuestionRequest adminQuestionRequest) {
         String userEmail = jwt.getClaimAsString("sub");
         String admin = jwt.getClaimAsString("userType");
         if (!"admin".equals(admin)) {
