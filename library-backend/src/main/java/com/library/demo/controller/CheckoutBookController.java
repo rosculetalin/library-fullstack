@@ -50,7 +50,7 @@ public class CheckoutBookController {
     }
 
     @PutMapping("/secure/return")
-    public void returnBook(@AuthenticationPrincipal Jwt jwt, @RequestParam Long bookId) throws BookNotFoundException {
+    public void returnBook(@AuthenticationPrincipal Jwt jwt, @RequestParam Long bookId) throws BookNotFoundException, Exception {
         String userEmail = jwt.getClaimAsString("sub");
         checkoutBookService.returnBook(userEmail, bookId);
     }
