@@ -261,7 +261,7 @@ III) Export the certificate from keystore:
 
 Add frontend and backend certificates to trusted authorities in windows
 
-1. press windows + R
+1. press windows + R 
 2. type certmgr.msc
 3. expand Trusted Root Certification Authorities
 4. right click on Certificates -> All Tasks -> Import
