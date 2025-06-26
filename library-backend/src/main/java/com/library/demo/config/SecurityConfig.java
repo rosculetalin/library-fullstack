@@ -30,7 +30,8 @@ public class SecurityConfig {
                         "/api/books/secure/**",
                         "/api/reviews/secure/**",
                         "/api/messages/secure/**",
-                        "/api/admin/secure/**").authenticated()
+                        "/api/admin/secure/**",
+                        "/api/payment/secure/**").authenticated()
                 .requestMatchers("/api/books/**", "/api/reviews/**", "/api/histories/**", "/api/messages/**", "/api/payments/**").permitAll()
         );
 
